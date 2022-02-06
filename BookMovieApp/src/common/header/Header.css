@@ -1,0 +1,36 @@
+.app-header-styling{
+    background-color: #222 !important;
+    height: 36px;
+    padding : 8px 32px 8px 16px; 
+}
+
+.toolBar-app-header{
+    min-height: 36px !important; 
+    padding-left: 0px !important; 
+    padding-right : 0px !important; 
+}
+
+.logo-app-header  { 
+    height: 35px;
+    background-color: #ff7f7f; 
+    margin-bottom: 20px;  
+    -webkit-animation: rotation 8s infinite linear; 
+}
+
+.fill-remaining-space{
+    flex : auto; 
+}
+
+.login-button{
+    height: 30px;
+    margin-bottom:18px !important; 
+}
+
+@-webkit-keyframes rotation {
+    from {
+            -webkit-transform: rotateY(0deg);
+    }
+    to {
+            -webkit-transform: rotateY(359deg);
+    }
+}

@@ -1,38 +1,47 @@
 import React, { useState } from 'react';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
-import './LoginForm.css'; 
+import './LoginForm.css';
+import { ValidatorForm, TextValidator } from 'react-material-ui-form-validator';
 
 const LoginForm = () => {
     const [userName, setUserName] = useState('');
     const [password, setPassword] = useState('');
+    const onFormSubmitted = (e) => {
+        e.preventDefault();
+        debugger; 
+    }
+
     return (
         <div className='login-form'>
-            <TextField
-                required
-                id="user-name"
-                label="Username"
-                className={'test'}
-                value={userName}
-                onChange={(event) => setUserName(event.target.value)}
-                margin="normal"
-            />
-            <br />
-            <TextField
-                required
-                id="user-password"
-                label="Password"
-                className={'test'}
-                value={password}
-                type="password"
-                onChange={(event) => setPassword(event.target.value)}
-                margin="normal"
-            />
-            <br />
+            <ValidatorForm  onSubmit={onFormSubmitted} autoComplete="off">
+                <TextValidator
+                   
+                    id="user-name"
+                    label="Username"
+                    className={'test'}
+                    value={userName}
+                    onChange={(event) => setUserName(event.target.value)}
+                    validators={['required']}
+                    errorMessages={['Username cannot be empty']}
+                    margin="normal"
+                />
+                <TextValidator
+                    id="user-password"
+                    label="Password"
+                    className={'test'}
+                    value={password}
+                    type="password"
+                    validators={['required']}
+                    errorMessages={['Password cannot be empty']}
+                    onChange={(event) => setPassword(event.target.value)}
+                    margin="normal"
+                />
 
-            <Button variant="contained" color="primary" className='login-button'>
-                Login
-            </Button>
+                <Button variant="contained" type='sumit' color="primary" className='login-button'>
+                    Login
+                </Button>
+            </ValidatorForm>
 
         </div>
     );

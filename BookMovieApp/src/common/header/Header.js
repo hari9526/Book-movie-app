@@ -63,7 +63,7 @@ function Header() {
       <Modal
         aria-labelledby="simple-modal-title"
         aria-describedby="simple-modal-description"
-        boxShadow={1}
+        boxshadow={1}
         open={showLoginModal}
         onClose={handleClose}>
 

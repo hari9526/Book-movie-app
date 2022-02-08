@@ -19,7 +19,6 @@ const LoginForm = () => {
                    
                     id="user-name"
                     label="Username"
-                    className={'test'}
                     value={userName}
                     onChange={(event) => setUserName(event.target.value)}
                     validators={['required']}
@@ -29,7 +28,6 @@ const LoginForm = () => {
                 <TextValidator
                     id="user-password"
                     label="Password"
-                    className={'test'}
                     value={password}
                     type="password"
                     validators={['required']}

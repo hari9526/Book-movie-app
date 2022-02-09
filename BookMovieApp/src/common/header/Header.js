@@ -100,7 +100,7 @@ function Header(props) {
 
         <div style={getModalStyle()} className='login-modal' >
 
-          <LoginModal baseUrl={props.baseUrl} setIsUserLoggedIn={setIsUserLoggedIn} />
+          <LoginModal baseUrl={props.baseUrl} setIsUserLoggedIn={setIsUserLoggedIn} setShowLoginModal={setShowLoginModal}/>
         </div>
       </Modal>
     </div>

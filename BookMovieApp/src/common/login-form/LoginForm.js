@@ -25,6 +25,7 @@ const LoginForm = (props) => {
                     localStorage.setItem('userData', JSON.stringify(data));
                     localStorage.setItem('authorizationToken', authorizationToken);
                     props.setIsUserLoggedIn(true); 
+                    props.setShowLoginModal(false); 
                 }
                 else { 
                     console.log(data); 

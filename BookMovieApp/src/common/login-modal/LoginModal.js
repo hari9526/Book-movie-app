@@ -25,7 +25,7 @@ const LoginModal = (props) => {
                 <LinkTab label="Login" href="login" />
                 <LinkTab label="Register" href="register" />
             </Tabs>
-            {value === 0 && <LoginForm baseUrl={ props.baseUrl}/>}
+            {value === 0 && <LoginForm baseUrl={props.baseUrl} setIsUserLoggedIn={ props.setIsUserLoggedIn}/>}
             {value === 1 && <RegisterForm baseUrl={ props.baseUrl}/>}
         </div>
     );

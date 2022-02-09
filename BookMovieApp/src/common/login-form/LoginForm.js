@@ -24,11 +24,11 @@ const LoginForm = (props) => {
                 if (data.status == "ACTIVE") {
                     localStorage.setItem('userData', JSON.stringify(data));
                     localStorage.setItem('authorizationToken', authorizationToken);
+                    props.setIsUserLoggedIn(true); 
                 }
                 else { 
                     console.log(data); 
                 }
-                debugger; 
             });
     }
 

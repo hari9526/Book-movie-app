@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 import AppBar from '@material-ui/core/AppBar';
@@ -13,7 +13,16 @@ import LoginModal from '../login-modal/LoginModal';
 
 function Header(props) {
   const [showLoginModal, setShowLoginModal] = useState(false);
+  const [isUserLoggedIn, setIsUserLoggedIn] = useState(false);
   const history = useHistory();
+
+
+  useEffect(() => {
+
+    let isLoggedIn = localStorage.getItem('authorizationToken') == null ? false : true;
+    debugger;
+    setIsUserLoggedIn(isLoggedIn);
+  }, [])
 
   const bookShowEventHandler = () => {
     history.push(`/bookshow/12`);
@@ -24,6 +33,9 @@ function Header(props) {
     //login button
     setShowLoginModal(true);
 
+  }
+
+  const logoutEventHandler = () => {
   }
 
   const handleClose = () => {
@@ -55,9 +67,20 @@ function Header(props) {
           <Button variant='contained' color='primary' onClick={() => bookShowEventHandler()} className='header-button'>
             Book Show
           </Button>
-          <Button variant="contained" color="default" onClick={() => { loginEventHandler() }} className='header-button'>
-            Login
-          </Button>
+          {
+            isUserLoggedIn ? (
+              <Button variant="contained" color="default" onClick={() => { logoutEventHandler() }} className='header-button'>
+                Logout
+              </Button>
+            ) : (
+
+              <Button variant="contained" color="default" onClick={() => { loginEventHandler() }} className='header-button'>
+                Login
+              </Button>
+
+            )
+          }
+
         </Toolbar>
       </AppBar>
       <Modal
@@ -68,8 +91,8 @@ function Header(props) {
         onClose={handleClose}>
 
         <div style={getModalStyle()} className='login-modal' >
-          
-          <LoginModal baseUrl={ props.baseUrl}/>
+
+          <LoginModal baseUrl={props.baseUrl} setIsUserLoggedIn={ setIsUserLoggedIn}/>
         </div>
       </Modal>
     </div>

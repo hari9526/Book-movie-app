@@ -15,6 +15,7 @@ function Header(props) {
   const [showLoginModal, setShowLoginModal] = useState(false);
   const [isUserLoggedIn, setIsUserLoggedIn] = useState(false);
   const [isBookShowVisible, setIsBookShowVisible] = useState(false);
+  const [refresh, setRefresh] = useState(false); 
   const history = useHistory();
 
 
@@ -24,7 +25,7 @@ function Header(props) {
     setIsUserLoggedIn(isLoggedIn);
     if (window.location.pathname.includes('movie'))
       setIsBookShowVisible(true)
-  }, [window.location.pathname])
+  }, [window.location.pathname, refresh])
 
   const bookShowEventHandler = () => {         
     history.push(`/bookshow/`);
@@ -35,10 +36,13 @@ function Header(props) {
     //Open login modal when user clicks on 
     //login button
     setShowLoginModal(true);
+    
 
   }
 
   const logoutEventHandler = () => {
+    localStorage.clear(); 
+    setRefresh(!refresh); 
   }
 
   const handleClose = () => {

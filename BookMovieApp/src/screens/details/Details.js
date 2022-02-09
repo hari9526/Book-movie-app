@@ -33,6 +33,10 @@ const Details = (props) => {
         <Typography variant="subtitle1" gutterBottom className='back-to-home'>
           &lt; Back to Home
         </Typography>
+        <div className='movie-poster'>
+          <img src={movieDetails.poster_url} alt={movieDetails.title} />
+        </div>
+
       </div>
       <div className='movie-details-middle'>
         scale

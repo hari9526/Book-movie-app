@@ -4,16 +4,16 @@
     flex-direction: row;
 }
 .movie-details-left{
-    flex-basis: 25%;
+    flex-basis: 20%;
     
 
 }
 .movie-details-middle{
-    flex-basis: 50%;
+    flex-basis: 60%;
 
 }
 .movie-details-right{
-    flex-basis: 25%;
+    flex-basis: 20%;
 }
 
 .back-to-home{
@@ -23,5 +23,8 @@
     cursor: pointer !important;
 }
 
+.movie-poster{
+    margin-left : 24px; 
+}
 
 

@@ -11,7 +11,7 @@ import { Modal } from '@material-ui/core';
 import LoginModal from '../login-modal/LoginModal';
 
 
-function Header() {
+function Header(props) {
   const [showLoginModal, setShowLoginModal] = useState(false);
   const history = useHistory();
 
@@ -69,7 +69,7 @@ function Header() {
 
         <div style={getModalStyle()} className='login-modal' >
           
-          <LoginModal />
+          <LoginModal baseUrl={ props.baseUrl}/>
         </div>
       </Modal>
     </div>

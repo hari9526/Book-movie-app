@@ -8,7 +8,7 @@ import LoginForm from '../login-form/LoginForm';
 import './LoginModal.css'; 
 
 
-const LoginModal = () => {
+const LoginModal = (props) => {
     const [value, setValue] = useState(0);
 
     const handleChange = (event, value) => {
@@ -21,18 +21,12 @@ const LoginModal = () => {
 
     return (
         <div>
-            {/* <Typography variant="h6" id="modal-title">
-                Text in a modal
-            </Typography>
-            <Typography variant="subtitle1" id="simple-modal-description">
-                Duis mollis, est non commodo luctus, nisi erat porttitor ligula.
-            </Typography> */}
             <Tabs variant="fullWidth" value={value} onChange={(event, value) => handleChange(event, value)} className='login-model-tab'>
                 <LinkTab label="Login" href="login" />
                 <LinkTab label="Register" href="register" />
             </Tabs>
-            {value === 0 && <LoginForm />}
-            {value === 1 && <RegisterForm />}
+            {value === 0 && <LoginForm baseUrl={ props.baseUrl}/>}
+            {value === 1 && <RegisterForm baseUrl={ props.baseUrl}/>}
         </div>
     );
 };

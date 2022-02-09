@@ -51,7 +51,7 @@ const Confirmation = (props) => {
 
     fetch(props.baseUrl + "bookings", {
       method: "POST",
-      headers: {
+      headers: {  
         "Content-Type": "application/json",
         "Cache-Control": "no-cache",
         Authorization: "Bearer " + sessionStorage.getItem("access-token"),

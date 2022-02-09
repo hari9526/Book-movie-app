@@ -13,6 +13,7 @@ import Typography from '@material-ui/core/Typography';
 import CardActions from '@material-ui/core/CardActions';
 import FindMoviesForm from './FindMoviesForm';
 import { Link } from 'react-router-dom';
+import Header from '../../common/header/Header';
 
 
 
@@ -149,6 +150,7 @@ const Home = (props) => {
 
   return (
     <div>
+      <Header baseUrl={props.baseUrl}/> 
       <div className='home-page-header'>
         Upcoming Movies
       </div>

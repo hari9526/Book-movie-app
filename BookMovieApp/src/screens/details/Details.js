@@ -9,6 +9,7 @@ import StarBorderIcon from "@material-ui/icons/StarBorder";
 import GridList from '@material-ui/core/GridList';
 import GridListTile from '@material-ui/core/GridListTile';
 import GridListTileBar from '@material-ui/core/GridListTileBar';
+import Header  from '../../common/header/Header';
 
 
 const styles = (theme) => ({
@@ -75,6 +76,7 @@ const Details = (props) => {
   return (
 
     <div >
+      <Header baseUrl={props.baseUrl}/> 
       {Object.keys(movieDetails).length !== 0 && (
         <div className='movie-details-container'>
           <div className='movie-details-left'>

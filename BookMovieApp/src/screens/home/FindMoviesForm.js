@@ -42,24 +42,13 @@ const styles = theme => ({
 //     },
 // };
 
-const name = ['Oliver Hansen',
-    'Van Henry',
-    'April Tucker',
-    'Ralph Hubbard',
-    'Omar Alexander',
-    'Carlos Abbott',
-    'Miriam Wagner',
-    'Bradley Wilkerson',
-    'Virginia Andrews',
-    'Kelly Snyder',];
 
 const FindMoviesForm = (props) => {
 
     const { classes } = props;
 
     const [movieName, setMovieName] = useState('');
-    const [genres, setGenres] = useState([]
-    );
+    const [genres, setGenres] = useState([]);
 
 
     const [artists, setArtists] = useState([]);
@@ -69,15 +58,21 @@ const FindMoviesForm = (props) => {
     const onFormSubmitted = (e) => {
         e.preventDefault();
 
-        const queryParams = { title: movieName, start_date: releaseDate, end_date: releaseDateEnd };
+        const queryParams = { title: movieName, status : 'RELEASED', start_date: releaseDate, end_date: releaseDateEnd };
         const queryString = `${props.baseUrl}/movies?${new URLSearchParams(queryParams).toString()}`;      
         let apiResponse = []
         fetch(queryString)
             .then((res) => res.json())
             .then((data) => {
-                apiResponse = data.movies;
-                //To implement: 
-                //Filtering based on genres and artists                                 
+                apiResponse = data.movies;                                
+                // if (genres.length > 0) {
+                //     let newFilteredRes= apiResponse.filter(res => {
+                //         res.genres.some( x=> genres.includes(x))
+                //     }); 
+                //     apiResponse = newFilteredRes;                    
+                // }
+                
+                                     
                 let filteredResponse = apiResponse.map(({ poster_url, title }) => {
                     return {
                         img: poster_url,

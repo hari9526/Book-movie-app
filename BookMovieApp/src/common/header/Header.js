@@ -17,7 +17,7 @@ function Header(props) {
   const [isBookShowVisible, setIsBookShowVisible] = useState(false);
   const [refresh, setRefresh] = useState(false); 
   const history = useHistory();
-
+  const { id } = useParams();
 
   useEffect(() => {
     
@@ -27,17 +27,16 @@ function Header(props) {
       setIsBookShowVisible(true)
   }, [window.location.pathname, refresh])
 
-  const bookShowEventHandler = () => {         
-    history.push(`/bookshow/`);
+  const bookShowEventHandler = () => { 
+    debugger; 
+    history.push(`/bookshow/${id}`);
   }
   
 
   const loginEventHandler = () => {
     //Open login modal when user clicks on 
     //login button
-    setShowLoginModal(true);
-    
-
+    setShowLoginModal(true);    
   }
 
   const logoutEventHandler = () => {

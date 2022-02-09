@@ -193,6 +193,7 @@ const BookShow = (props) => {
 
   return (
     <div>
+      <Header baseUrl={props.baseUrl}/>
       <div className="bookShow">
         <Typography className="back">
           <Link to={"/movie/" + props.match.params.id}>

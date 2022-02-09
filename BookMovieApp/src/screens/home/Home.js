@@ -5,12 +5,14 @@ import { withStyles } from '@material-ui/core/styles';
 import GridList from '@material-ui/core/GridList';
 import GridListTile from '@material-ui/core/GridListTile';
 import GridListTileBar from '@material-ui/core/GridListTileBar';
-import ListSubheader from '@material-ui/core/ListSubheader';
-import IconButton from '@material-ui/core/IconButton';
-import InfoIcon from '@material-ui/icons/Info';
-import StarBorderIcon from '@material-ui/icons/StarBorder';
 import './Home.css';
-import { makeStyles } from '@material-ui/core/styles';
+import Card from '@material-ui/core/Card';
+import CardContent from '@material-ui/core/CardContent';
+import Button from '@material-ui/core/Button';
+import Typography from '@material-ui/core/Typography';
+import CardActions from '@material-ui/core/CardActions';
+import FindMoviesForm from './FindMoviesForm'; 
+
 
 
 const styles = theme => ({
@@ -37,20 +39,35 @@ const styles = theme => ({
     background:
       'linear-gradient(to top, rgba(0,0,0,0.7) 0%, rgba(0,0,0,0.3) 70%, rgba(0,0,0,0) 100%)',
   },
+  card: {
+    minWidth: 240,
+    maxWidth: 240, 
+    marginLeft: 'auto', 
+  },
+  bullet: {
+    display: 'inline-block',
+    margin: '0 2px',
+    transform: 'scale(0.8)',
+  },
 });
 
 
 
 const Home = (props) => {
   const { classes } = props;
+  const bull = <span className={classes.bullet}>•</span>;
 
   const [upComingMoviesList, setUpcomingMoviesList] = useState([]);
   const [releasedMoviesList, setReleasedMoviesList] = useState([]);
+  const [genresList, setGenresList] = useState([]);
+  const [artistsList, setArtistsList] = useState([]);
 
   useEffect(() => {
 
     getUpcomingMoviesList();
     getReleasedMoviesList();
+    getGenresList(); 
+    getArtistsList(); 
   }, []);
 
   async function getUpcomingMoviesList() {
@@ -96,6 +113,38 @@ const Home = (props) => {
 
   }
 
+  async function getGenresList() {
+    try {
+      const rawResponse = await fetch(`${props.baseUrl}/genres`);
+      const data = await rawResponse.json();
+
+      if (rawResponse.ok) {
+        let formmattedResponse = data.genres.map(({ genre }) => genre);    
+        setGenresList(formmattedResponse);
+      }
+    }
+    catch (e) {
+      console.log(e);
+    }
+
+  }
+
+  async function getArtistsList() {
+    try {
+      const rawResponse = await fetch(`${props.baseUrl}/artists`);
+      const data = await rawResponse.json();
+
+      if (rawResponse.ok) {
+        let formmattedResponse = data.artists.map(({ first_name, last_name }) => first_name + last_name);    
+        setArtistsList(formmattedResponse);
+      }
+    }
+    catch (e) {
+      console.log(e);
+    }
+
+  }
+
   function formatDates(dateValue) {
     const parts = dateValue.split('-');
     const dateString = new Intl.DateTimeFormat('en-US', {
@@ -133,7 +182,7 @@ const Home = (props) => {
         <div className='released-movies'>
           <GridList className={classes.gridList}
             cols={4}
-            spacing = {32}
+            spacing={32}
             cellHeight={350}
             style={{ height: 'auto' }}>
             {releasedMoviesList.map(tile => (
@@ -148,11 +197,20 @@ const Home = (props) => {
           </GridList>
         </div>
         <div className='movie-filter'>
-
+          <Card className={classes.card}>
+            <CardContent>
+              <Typography className={classes.title} color="textSecondary" gutterBottom>
+               FIND MOVIES BY:
+              </Typography>
+              <FindMoviesForm
+                genresList={genresList}
+                artistsList={artistsList}
+                baseUrl = {props.baseUrl}
+                setReleasedMoviesList={setReleasedMoviesList} />              
+            </CardContent>            
+          </Card> 
         </div>
-
       </div>
-
     </div>
   );
 };

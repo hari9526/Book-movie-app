@@ -12,12 +12,12 @@
 }
 
 .released-movies{
-    flex-grow : 19; 
+    flex-basis : 76%; 
     margin : 16px; 
 }
 
 .movie-filter{
-    flex-grow : 6; 
+    flex-basis : 24%; 
     margin : 16px;
 }
 

@@ -103,7 +103,7 @@ const Home = (props) => {
             id: id,
             img: poster_url,
             title: title,
-            releasedDate: formatDates(release_date),
+            releasedDate: new Date(release_date).toDateString(),
           }
         });
         setReleasedMoviesList(formmattedResponse);
@@ -146,20 +146,6 @@ const Home = (props) => {
     }
 
   }
-
-  function formatDates(dateValue) {
-    const parts = dateValue.split('-');
-    const dateString = new Intl.DateTimeFormat('en-US', {
-      weekday: 'long',
-      year: 'numeric',
-      month: 'long',
-      day: 'numeric',
-      timeZone: 'UTC'
-    }).format(Date.UTC(...parts)).replace(/,/g, '');
-    return (dateString);
-  }
-
-
 
   return (
     <div>

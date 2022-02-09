@@ -14,6 +14,7 @@ import LoginModal from '../login-modal/LoginModal';
 function Header(props) {
   const [showLoginModal, setShowLoginModal] = useState(false);
   const [isUserLoggedIn, setIsUserLoggedIn] = useState(false);
+  const [isBookShowVisible, setIsBookShowVisible] = useState(false);
   const history = useHistory();
 
 
@@ -21,7 +22,9 @@ function Header(props) {
 
     let isLoggedIn = localStorage.getItem('authorizationToken') == null ? false : true;
     setIsUserLoggedIn(isLoggedIn);
-  }, [])
+    if (window.location.pathname.includes('movie'))
+      setIsBookShowVisible(true)
+  }, [window.location.pathname])
 
   const bookShowEventHandler = () => {
     history.push(`/bookshow/12`);
@@ -63,9 +66,14 @@ function Header(props) {
         <Toolbar className='toolBar-app-header'>
           <img src={logo} className='logo-app-header ' />
           <div className='fill-remaining-space'></div>
-          <Button variant='contained' color='primary' onClick={() => bookShowEventHandler()} className='header-button'>
-            Book Show
-          </Button>
+          {
+            isBookShowVisible && (
+              <Button variant='contained' color='primary' onClick={() => bookShowEventHandler()} className='header-button'>
+                Book Show
+              </Button>
+            )
+          }
+
           {
             isUserLoggedIn ? (
               <Button variant="contained" color="default" onClick={() => { logoutEventHandler() }} className='header-button'>
@@ -91,7 +99,7 @@ function Header(props) {
 
         <div style={getModalStyle()} className='login-modal' >
 
-          <LoginModal baseUrl={props.baseUrl} setIsUserLoggedIn={ setIsUserLoggedIn}/>
+          <LoginModal baseUrl={props.baseUrl} setIsUserLoggedIn={setIsUserLoggedIn} />
         </div>
       </Modal>
     </div>

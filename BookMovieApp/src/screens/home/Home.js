@@ -11,7 +11,8 @@ import CardContent from '@material-ui/core/CardContent';
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
 import CardActions from '@material-ui/core/CardActions';
-import FindMoviesForm from './FindMoviesForm'; 
+import FindMoviesForm from './FindMoviesForm';
+import { Link } from 'react-router-dom';
 
 
 
@@ -41,8 +42,8 @@ const styles = theme => ({
   },
   card: {
     minWidth: 240,
-    maxWidth: 240, 
-    marginLeft: 'auto', 
+    maxWidth: 240,
+    marginLeft: 'auto',
   },
   bullet: {
     display: 'inline-block',
@@ -66,8 +67,8 @@ const Home = (props) => {
 
     getUpcomingMoviesList();
     getReleasedMoviesList();
-    getGenresList(); 
-    getArtistsList(); 
+    getGenresList();
+    getArtistsList();
   }, []);
 
   async function getUpcomingMoviesList() {
@@ -97,8 +98,9 @@ const Home = (props) => {
       const data = await rawResponse.json();
 
       if (rawResponse.ok) {
-        let formmattedResponse = data.movies.map(({ poster_url, title, release_date }) => {
+        let formmattedResponse = data.movies.map(({ id, poster_url, title, release_date }) => {
           return {
+            id: id,
             img: poster_url,
             title: title,
             releasedDate: formatDates(release_date),
@@ -119,7 +121,7 @@ const Home = (props) => {
       const data = await rawResponse.json();
 
       if (rawResponse.ok) {
-        let formmattedResponse = data.genres.map(({ genre }) => genre);    
+        let formmattedResponse = data.genres.map(({ genre }) => genre);
         setGenresList(formmattedResponse);
       }
     }
@@ -135,7 +137,7 @@ const Home = (props) => {
       const data = await rawResponse.json();
 
       if (rawResponse.ok) {
-        let formmattedResponse = data.artists.map(({ first_name, last_name }) => first_name + last_name);    
+        let formmattedResponse = data.artists.map(({ first_name, last_name }) => first_name + last_name);
         setArtistsList(formmattedResponse);
       }
     }
@@ -186,13 +188,20 @@ const Home = (props) => {
             cellHeight={350}
             style={{ height: 'auto' }}>
             {releasedMoviesList.map(tile => (
+
               <GridListTile key={tile.img} className='released-movie-hover'>
-                <img src={tile.img} alt={tile.title} />
-                <GridListTileBar
-                  title={tile.title}
-                  subtitle={<span>Release Date:{tile.releasedDate}</span>}
-                />
+                <Link to={`/movie/${tile.id}`}>
+                  <img src={tile.img} alt={tile.title} />
+                  <GridListTileBar
+                    title={tile.title}
+                    subtitle={<span>Release Date:{tile.releasedDate}</span>}
+                  />
+
+                </Link>
+
               </GridListTile>
+
+
             ))}
           </GridList>
         </div>
@@ -200,15 +209,15 @@ const Home = (props) => {
           <Card className={classes.card}>
             <CardContent>
               <Typography className={classes.title} color="textSecondary" gutterBottom>
-               FIND MOVIES BY:
+                FIND MOVIES BY:
               </Typography>
               <FindMoviesForm
                 genresList={genresList}
                 artistsList={artistsList}
-                baseUrl = {props.baseUrl}
-                setReleasedMoviesList={setReleasedMoviesList} />              
-            </CardContent>            
-          </Card> 
+                baseUrl={props.baseUrl}
+                setReleasedMoviesList={setReleasedMoviesList} />
+            </CardContent>
+          </Card>
         </div>
       </div>
     </div>

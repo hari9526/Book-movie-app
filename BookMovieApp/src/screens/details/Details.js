@@ -9,7 +9,9 @@ import StarBorderIcon from "@material-ui/icons/StarBorder";
 import GridList from '@material-ui/core/GridList';
 import GridListTile from '@material-ui/core/GridListTile';
 import GridListTileBar from '@material-ui/core/GridListTileBar';
-import Header  from '../../common/header/Header';
+import Header from '../../common/header/Header';
+
+
 
 
 const styles = (theme) => ({
@@ -35,6 +37,33 @@ const styles = (theme) => ({
 const Details = (props) => {
 
   const [movieDetails, setMovieDetails] = useState({});
+  const [starRatings, setStarRatings] = useState([
+    {
+      id: 1,
+      color: 'black-star',
+
+    },
+    {
+      id: 2,
+      color: 'black-star',
+
+    },
+    {
+      id: 3,
+      color: 'black-star',
+
+    },
+    {
+      id: 4,
+      color: 'black-star',
+
+    },
+    {
+      id: 5,
+      color: 'black-star',
+
+    },
+  ]);
   const { id } = useParams();
   const { classes } = props;
 
@@ -73,10 +102,32 @@ const Details = (props) => {
     event.target.pauseVideo();
   }
 
+  const ratingStartHandler = (e) => {
+    let num = e.currentTarget.id; 
+    let ratingsCopy = [...starRatings];  
+    if (ratingsCopy[num-1].color == 'black-star') {
+      for (let i = 0; i < num; i++){
+        ratingsCopy[i].color = 'yellow-star'; 
+      }
+      for (let i = num; i < 5; i++){
+        ratingsCopy[i].color = 'black-star'; 
+      }
+    }
+    else if(num < 4) {
+      
+      if (ratingsCopy[num ].color == 'black-star') {
+        ratingsCopy[num - 1] = 'black-star'; 
+      } 
+    }
+    
+    setStarRatings(ratingsCopy); 
+    debugger; 
+  }
+
   return (
 
     <div >
-      <Header baseUrl={props.baseUrl}/> 
+      <Header baseUrl={props.baseUrl} />
       {Object.keys(movieDetails).length !== 0 && (
         <div className='movie-details-container'>
           <div className='movie-details-left'>
@@ -121,15 +172,19 @@ const Details = (props) => {
             <Typography variant="h6" gutterBottom>
               Rate this movie:
             </Typography>
-            {/* <Rating
-              name="half-rating-read"
-              defaultValue={3.5}
-              precision={0.5}
-              readOnly
-              emptyIcon={
-                <StarBorderIcon fontSize="inherit" className={classes.emptyStar} />
-              }
-            /> */}
+
+            {
+              starRatings.map(star => (
+                < StarBorderIcon
+                  id={star.id}
+                  className={star.color}
+                  key={star.id}
+                  onClick={(e)=>{ratingStartHandler(e)}}
+                />)
+              )
+            }
+
+
 
             <Typography variant="h6" gutterBottom className='artists-title'>
               Artists:

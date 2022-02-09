@@ -11,6 +11,7 @@ import Input from '@material-ui/core/Input';
 import Select from '@material-ui/core/Select';
 import InputLabel from '@material-ui/core/InputLabel';
 import FormControl from '@material-ui/core/FormControl';
+import './Home.css'; 
 
 
 const styles = theme => ({
@@ -168,7 +169,7 @@ const FindMoviesForm = (props) => {
                     }}
                     margin="normal"
                 />
-                <Button variant="contained" type='sumit' color="primary" className='login-button'>
+                <Button variant="contained" type='sumit' color="primary" className='apply-filter'>
                     APPLY
                 </Button>
             </form>

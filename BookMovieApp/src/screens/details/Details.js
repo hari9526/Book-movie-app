@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 import './Details.css';
 import Typography from '@material-ui/core/Typography';
 import YouTube from 'react-youtube';
@@ -25,7 +25,7 @@ const styles = (theme) => ({
   },
   gridList: {
     width: '100%',
-    height: '100%', 
+    height: '100%',
   },
 });
 
@@ -78,9 +78,14 @@ const Details = (props) => {
       {Object.keys(movieDetails).length !== 0 && (
         <div className='movie-details-container'>
           <div className='movie-details-left'>
+
             <Typography variant="subtitle1" gutterBottom className='back-to-home'>
-              &lt; Back to Home
+              <Link to={`/`} style={{ textDecoration: 'none' }}>
+                &lt; Back to Home
+              </Link>
+
             </Typography>
+
             <div className='movie-poster'>
               <img src={movieDetails.poster_url} alt={movieDetails.title} />
             </div>
@@ -134,16 +139,12 @@ const Details = (props) => {
               style={{ height: 'auto' }}>
               {movieDetails.artists.map(tile => (
 
-                <GridListTile key={tile.img} className='released-movie-hover'>
-                  {/* <Link to={`/movie/${tile.id}`}> */}
-                    <img src={tile.profile_url} alt={tile.first_name + " " + tile.last_name} />
-                    <GridListTileBar
-                      title={tile.first_name + " " + tile.last_name}
-                      
-                    />
+                <GridListTile key={tile.profile_url} className='released-movie-hover'>
+                  <img src={tile.profile_url} alt={tile.first_name + " " + tile.last_name} />
+                  <GridListTileBar
+                    title={tile.first_name + " " + tile.last_name}
 
-                  {/* </Link> */}
-
+                  />
                 </GridListTile>
 
 
@@ -151,10 +152,11 @@ const Details = (props) => {
             </GridList>
           </div>
         </div>
-      )}
+      )
+      }
 
 
-    </div>
+    </div >
   );
 };
 

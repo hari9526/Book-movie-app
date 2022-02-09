@@ -10,6 +10,7 @@
 }
 .movie-details-middle{
     flex-basis: 60%;
+    margin : 30px; 
 
 }
 .movie-details-right{

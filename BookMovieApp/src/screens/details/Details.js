@@ -2,10 +2,22 @@ import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import './Details.css';
 import Typography from '@material-ui/core/Typography';
+import YouTube from 'react-youtube';
+
 
 const Details = (props) => {
   const [movieDetails, setMovieDetails] = useState({});
   const { id } = useParams();
+
+  const opts = {
+    height: '390',
+    width: '640',
+    playerVars: {
+      // https://developers.google.com/youtube/player_parameters
+      autoplay: 1,
+    },
+  };
+
 
   useEffect(() => {
 
@@ -25,6 +37,11 @@ const Details = (props) => {
       console.log(e);
     }
 
+  }
+
+  function _onReady(event) {
+    // access to player in all event handlers via event.target
+    event.target.pauseVideo();
   }
 
   return (
@@ -54,6 +71,16 @@ const Details = (props) => {
             <Typography variant="subtitle1" gutterBottom>
               <strong>Release Date</strong>: {new Date(movieDetails.release_date).toDateString()}
             </Typography>
+            <Typography variant="subtitle1" gutterBottom>
+              <strong>Rating</strong>: {movieDetails.rating}
+            </Typography>
+            <Typography variant="subtitle1" gutterBottom>
+              <strong>Plot</strong>: (<a href={ movieDetails.wiki_url} target = "_blank">Wiki Link</a>) {movieDetails.storyline}
+            </Typography>
+            <Typography variant="subtitle1" gutterBottom>
+              <strong>Trailer</strong>:
+            </Typography>
+            <YouTube videoId={movieDetails.trailer_url.split('=').pop()} opts={opts} onReady={_onReady} />
           </div>
           <div className='movie-details-right'>
             dispBlock

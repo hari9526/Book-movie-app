@@ -6,7 +6,7 @@ import Toolbar from '@material-ui/core/Toolbar';
 import Button from '@material-ui/core/Button';
 import logo from '../../assets/logo.svg';
 import './Header.css';
-import { useHistory } from 'react-router-dom';
+import { useHistory, useParams } from 'react-router-dom';
 import { Modal } from '@material-ui/core';
 import LoginModal from '../login-modal/LoginModal';
 
@@ -19,16 +19,17 @@ function Header(props) {
 
 
   useEffect(() => {
-
+    
     let isLoggedIn = localStorage.getItem('authorizationToken') == null ? false : true;
     setIsUserLoggedIn(isLoggedIn);
     if (window.location.pathname.includes('movie'))
       setIsBookShowVisible(true)
   }, [window.location.pathname])
 
-  const bookShowEventHandler = () => {
-    history.push(`/bookshow/12`);
+  const bookShowEventHandler = () => {         
+    history.push(`/bookshow/`);
   }
+  
 
   const loginEventHandler = () => {
     //Open login modal when user clicks on 

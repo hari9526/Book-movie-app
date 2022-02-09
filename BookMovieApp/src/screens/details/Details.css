@@ -1,0 +1,27 @@
+.movie-details-container{
+    display: flex;
+    align-items: stretch; 
+    flex-direction: row;
+}
+.movie-details-left{
+    flex-basis: 25%;
+    
+
+}
+.movie-details-middle{
+    flex-basis: 50%;
+
+}
+.movie-details-right{
+    flex-basis: 25%;
+}
+
+.back-to-home{
+    margin-left: 24px !important;
+    margin-top:8px !important;
+    margin-bottom: 0px !important;
+    cursor: pointer !important;
+}
+
+
+

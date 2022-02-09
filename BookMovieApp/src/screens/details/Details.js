@@ -3,11 +3,39 @@ import { useParams } from 'react-router-dom';
 import './Details.css';
 import Typography from '@material-ui/core/Typography';
 import YouTube from 'react-youtube';
+import PropTypes from 'prop-types';
+import { withStyles } from '@material-ui/core/styles';
+import StarBorderIcon from "@material-ui/icons/StarBorder";
+import GridList from '@material-ui/core/GridList';
+import GridListTile from '@material-ui/core/GridListTile';
+import GridListTileBar from '@material-ui/core/GridListTileBar';
+
+
+const styles = (theme) => ({
+  root: {
+    display: "flex",
+    flexDirection: "column",
+
+    "& > * + *": {
+      marginTop: theme.spacing.unit
+    }
+  },
+  emptyStar: {
+    color: "white"
+  },
+  gridList: {
+    width: '100%',
+    height: '100%', 
+  },
+});
+
 
 
 const Details = (props) => {
+
   const [movieDetails, setMovieDetails] = useState({});
   const { id } = useParams();
+  const { classes } = props;
 
   const opts = {
     height: '390',
@@ -75,7 +103,7 @@ const Details = (props) => {
               <strong>Rating</strong>: {movieDetails.rating}
             </Typography>
             <Typography variant="subtitle1" gutterBottom>
-              <strong>Plot</strong>: (<a href={ movieDetails.wiki_url} target = "_blank">Wiki Link</a>) {movieDetails.storyline}
+              <strong>Plot</strong>: (<a href={movieDetails.wiki_url} target="_blank">Wiki Link</a>) {movieDetails.storyline}
             </Typography>
             <Typography variant="subtitle1" gutterBottom>
               <strong>Trailer</strong>:
@@ -83,9 +111,45 @@ const Details = (props) => {
             <YouTube videoId={movieDetails.trailer_url.split('=').pop()} opts={opts} onReady={_onReady} />
           </div>
           <div className='movie-details-right'>
-            dispBlock
-          </div>
+            <Typography variant="h6" gutterBottom>
+              Rate this movie:
+            </Typography>
+            {/* <Rating
+              name="half-rating-read"
+              defaultValue={3.5}
+              precision={0.5}
+              readOnly
+              emptyIcon={
+                <StarBorderIcon fontSize="inherit" className={classes.emptyStar} />
+              }
+            /> */}
 
+            <Typography variant="h6" gutterBottom className='artists-title'>
+              Artists:
+            </Typography>
+            <GridList className={classes.gridList}
+              cols={2}
+              spacing={8}
+              cellHeight={150}
+              style={{ height: 'auto' }}>
+              {movieDetails.artists.map(tile => (
+
+                <GridListTile key={tile.img} className='released-movie-hover'>
+                  {/* <Link to={`/movie/${tile.id}`}> */}
+                    <img src={tile.profile_url} alt={tile.first_name + " " + tile.last_name} />
+                    <GridListTileBar
+                      title={tile.first_name + " " + tile.last_name}
+                      
+                    />
+
+                  {/* </Link> */}
+
+                </GridListTile>
+
+
+              ))}
+            </GridList>
+          </div>
         </div>
       )}
 
@@ -94,4 +158,9 @@ const Details = (props) => {
   );
 };
 
-export default Details;
+
+Details.propTypes = {
+  classes: PropTypes.object.isRequired,
+};
+
+export default withStyles(styles)(Details);

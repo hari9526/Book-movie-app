@@ -5,8 +5,6 @@ import './RegisterForm.css';
 
 
 const RegisterForm = (props) => {
-    debugger;
-
     const [firstName, setFirstName] = useState('');
     const [lastName, setLastName] = useState('');
     const [email, setEmail] = useState('');

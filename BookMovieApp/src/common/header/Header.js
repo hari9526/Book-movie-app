@@ -20,7 +20,6 @@ function Header(props) {
   useEffect(() => {
 
     let isLoggedIn = localStorage.getItem('authorizationToken') == null ? false : true;
-    debugger;
     setIsUserLoggedIn(isLoggedIn);
   }, [])
 
